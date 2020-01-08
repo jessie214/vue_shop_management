@@ -101,6 +101,7 @@ export default {
     width:100%;
     padding:0 20px;
     box-sizing: border-box;
+    background-color: #ffffff;
   }
 }
 </style>
