@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <div>
+    <el-button type="info" @click="logout">log out</el-button>
+  </div>
 </template>
 
 <script>
@@ -8,10 +10,10 @@ export default {
   components: {
 
   },
-  data() {
+  data () {
     return {
 
-    };
+    }
   },
   computed: {
 
@@ -19,17 +21,20 @@ export default {
   watch: {
 
   },
-  created() {
+  created () {
 
   },
-  mounted() {
+  mounted () {
 
   },
   methods: {
-
+    logout () {
+      window.sessionStorage.clear()
+      this.$router.push('/login')
+    }
   }
 }
 </script>
 
-<style lang='scss' scoped>
+<style lang='less' scoped>
 </style>

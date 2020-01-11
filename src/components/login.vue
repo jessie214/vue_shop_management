@@ -52,8 +52,16 @@ export default {
     },
     // Methods to add validation form, Returns true if the check is successful
     login () {
-      this.$refs.loginFormRef.validate(valid => {
-        console.log(valid)
+      // click on login, first call the validate method to verify the contents of the form
+      this.$refs.loginFormRef.validate(async valid => {
+        // if the valid parameter is ture , it passes
+        if (!valid) return
+        // Send a request to log in
+        const { data: res } = await this.$http.post('login', this.loginForm)
+        if (res.meta.status !== 200) return this.$message.error('Login failed')
+        this.$message.success('Login Success')
+        window.sessionStorage.setItem('token', res.data.token)
+        this.$router.push('/home')
       })
     }
   }
