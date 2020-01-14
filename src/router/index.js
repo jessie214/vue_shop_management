@@ -2,13 +2,20 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '../components/login.vue'
 import Home from '../components/home.vue'
+import Welcome from '../components/welcome.vue'
 Vue.use(Router)
 
 const router = new Router({
   routes: [
     { path: '/', component: Login },
     { path: '/login', component: Login },
-    { path: '/home', component: Home }
+    { path: '/home',
+      component: Home,
+      redirect: '/welcome',
+      children: [
+        { path: '/welcome', component: Welcome }
+      ] }
+
   ]
 })
 // Start with the login page if the user is not logged in(no token)
