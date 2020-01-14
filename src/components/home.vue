@@ -15,6 +15,7 @@
           unique-opened
           :collapse="isCollapse"
           :collapse-transition="false"
+          router
         >
           <!--the first level of menu-->
           <el-submenu :index="item.id + ''" v-for="item in menulist" :key="item.id">
