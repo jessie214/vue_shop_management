@@ -5,6 +5,7 @@
       <div class="logo">
         <img src="../assets/logo.png"/>
       </div>
+      <!-- ref="loginFormRef" 实例对象用于重置方法的调用 -->
       <el-form label-width="0px" ref="loginFormRef" :model="loginForm" :rules="loginFormRules" class="login_form">
         <!--username-->
         <el-form-item prop="username">
@@ -56,10 +57,12 @@ export default {
       this.$refs.loginFormRef.validate(async valid => {
         // if the valid parameter is ture , it passes
         if (!valid) return
-        // Send a request to log in
+        // Send a request to log in, {data: res}是解构赋值将data重命名为res
         const { data: res } = await this.$http.post('login', this.loginForm)
+        // use the message to indicate success or failure
         if (res.meta.status !== 200) return this.$message.error('Login failed')
         this.$message.success('Login Success')
+        // Save token to the sessionStorage, sessionStorage.setItem('key',value) 将value存储在key字段
         window.sessionStorage.setItem('token', res.data.token)
         this.$router.push('/home')
       })

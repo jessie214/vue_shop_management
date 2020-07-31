@@ -11,13 +11,14 @@
         <el-menu
           background-color="#444444"
           text-color="#fff"
-          active-text-color="#409Eff"
+          active-text-color="#40 9Eff"
           unique-opened
           :collapse="isCollapse"
           :collapse-transition="false"
           router
+          :default-active="activePath"
         >
-          <!--the first level of menu-->
+          <!--the first level of menu,item.d + '' 是为了把index值转为字符串，数字和字符串拼接得字符串-->
           <el-submenu :index="item.id + ''" v-for="item in menulist" :key="item.id">
             <template slot="title">
               <i :class="iconsObj[item.id]"></i>
@@ -25,7 +26,7 @@
             </template>
             <!--the submenu-->
             <el-menu-item :index="'/' + subItem.path" v-for="subItem in item.children" :key="subItem.id" @click="saveNavState('/' + subItem.path)">
-              <template slot="title">
+              <template slot="title" >
                 <i class="el-icon-menu"></i>
                 <span>{{subItem.authName}}</span>
               </template>
@@ -47,6 +48,7 @@ export default {
   components: {},
   data () {
     return {
+      // menudata
       menulist: [],
       iconsObj: {
         // The value of the id of each menu item
@@ -57,11 +59,13 @@ export default {
         '145': 'iconfont icon-baobiao'
       },
       // Whether the menu collapse
-      isCollapse: false
+      isCollapse: false,
+      activePath: ''
     }
   },
   created () {
     this.getMenulist()
+    this.activePath = window.sessionStorage.getItem('activePath')
   },
   methods: {
     logout () {
@@ -77,6 +81,10 @@ export default {
     // click on the button to control the menu collapse or not
     toggleCollapse () {
       this.isCollapse = !this.isCollapse
+    },
+    saveNavState (activePath) {
+      window.sessionStorage.setItem('activePath', activePath)
+      this.activePath = activePath
     }
   }
 }

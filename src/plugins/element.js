@@ -25,4 +25,5 @@ Vue.use(Main)
 Vue.use(Menu)
 Vue.use(Submenu)
 Vue.use(MenuItem)
+// message比较特殊
 Vue.prototype.$message = Message
